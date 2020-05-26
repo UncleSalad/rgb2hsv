@@ -1,0 +1,63 @@
+#include <iostream>
+using namespace std;
+#define MIN3(x,y,z)  ((y) <= (z) ? \
+                          ((x) <= (y) ? (x) : (y)) \
+                      : \
+                          ((x) <= (z) ? (x) : (z)))
+ 
+#define MAX3(x,y,z)  ((y) >= (z) ? \
+                         ((x) >= (y) ? (x) : (y)) \
+                     : \
+                         ((x) >= (z) ? (x) : (z)))
+double R = 0, G = 0, B = 0;
+double Rin = 0, Gin = 0, Bin = 0;
+double H = 0;
+double S = 0, V = 0;
+double Cmax = 0;
+double Cmin = 0;
+double mod (double input, double y)
+{
+    double _input = input;
+    while (_input > y) _input -= y;
+    if (_input < y) return _input;
+}
+          <br>&nbsp;&nbsp;
+double map(double val, double inStart, double inEnd, double outStart, double 
+{
+    double coef = (outEnd - outStart)/(inEnd - inStart);
+    return val *  coef;
+}
+          <br>&nbsp;&nbsp;
+int main() 
+{
+    while(true)
+    {
+        cout << "R (0 - 255): ";
+        cin >> Rin;
+        cout << "G (0 - 255): ";
+        cin >> Gin;
+        cout << "B (0 - 255): ";
+        cin >> Bin;
+          <br>&nbsp;&nbsp;
+        R = map(Rin, 0, 255, 0, 1);
+        G = map(Gin, 0, 255, 0, 1);
+        B = map(Bin, 0, 255, 0, 1);
+        Cmax = MAX3(R, G, B);
+        Cmin = MIN3(R, G, B);
+        if (Cmax == Cmin) H = 0.0;
+        if ((Cmax == R) && (G == B)) H = 0.0;
+        if ((Cmax == R) && (G > B)) H = (60 * ((G - B)/(Cmax - Cmin))) + 0.0;
+        if ((Cmax == R) && (G < B)) H = 60 * ((G - B)/(Cmax - Cmin)) + 360.0;
+        if ((Cmax == G)) H = 60.0 * ((B - R)/(Cmax - Cmin)) + 120.0;
+        if ((Cmax == B)) H = 60.0 * ((R - G)/(Cmax - Cmin)) + 240.0;
+          <br>&nbsp;&nbsp;
+        if (Cmax == 0) S = 0;
+        else S = 1 - (Cmin/Cmax);
+          <br>&nbsp;&nbsp;
+        V = Cmax;
+          <br>&nbsp;&nbsp;
+        cout << "H = " << H << endl;
+        cout << "S = " << S * 100.0 << " %" << endl;
+        cout << "V = " << V * 100.0 << " %" << endl << endl; 
+    }
+}
