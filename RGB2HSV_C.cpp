@@ -30,49 +30,49 @@ void HSVtoRGB()
     RGB_HSV_C::cconstrain(ColorBuffer.h, 0, 360);
     RGB_HSV_C::cconstrain(ColorBuffer.s, 0, 100);
     RGB_HSV_C::cconstrain(ColorBuffer.v, 0, 100);
-    double r1g1b1[3];
+    double r1, g1, b1;
     double C = RGB_HSV_C::map(ColorBuffer.v, 0, 100, 0, 1) * RGB_HSV_C::map(ColorBuffer.s, 0, 100, 0, 1);
     double X = C *(1 - RGB_HSV_C::casb(RGB_HSV_C::mod((ColorBuffer.h/60.0), 2.0) - 1));
     double m = RGB_HSV_C::map(ColorBuffer.v, 0, 100, 0, 1) - C;
     if ((0 <= ColorBuffer.h) && (ColorBuffer.h < 60)) 
     {
-        r1g1b1[0] = C;
-        r1g1b1[1] = X;
-        r1g1b1[2] = 0;
+        r1 = C;
+        g1 = X;
+        b1 = 0;
     }
     if ((60 <= ColorBuffer.h) && (ColorBuffer.h < 120)) 
     {
-        r1g1b1[0] = X;
-        r1g1b1[1] = C;
-        r1g1b1[2] = 0;
+        r1 = X;
+        g1 = C;
+        b1 = 0;
     }
     if ((120 <= ColorBuffer.h) && (ColorBuffer.h < 180)) 
     {
-        r1g1b1[0] = 0;
-        r1g1b1[1] = C;
-        r1g1b1[2] = X;
+        r1 = 0;
+        g1 = C;
+        b1 = X;
     }
     if ((180 <= ColorBuffer.h) && (ColorBuffer.h < 240)) 
     {
-        r1g1b1[0] = 0;
-        r1g1b1[1] = X;
-        r1g1b1[2] = C;
+        r1 = 0;
+        g1 = X;
+        b1 = C;
     }
     if ((240 <= ColorBuffer.h) && (ColorBuffer.h < 300)) 
     {
-        r1g1b1[0] = X;
-        r1g1b1[1] = 0;
-        r1g1b1[2] = C;
+        r1 = X;
+        g1 = 0;
+        b1 = C;
     }
     if ((300 <= ColorBuffer.h) && (ColorBuffer.h <= 360)) 
     {
-        r1g1b1[0] = C;
-        r1g1b1[1] = 0;
-        r1g1b1[2] = X;
+        r1 = C;
+        g1 = 0;
+        b1 = X;
     }
-    ColorBuffer.r = (r1g1b1[0] + m) * 255;
-    ColorBuffer.g = (r1g1b1[1] + m) * 255;
-    ColorBuffer.b = (r1g1b1[2] + m) * 255;
+    ColorBuffer.r = (r1 + m) * 255;
+    ColorBuffer.g = (g1 + m) * 255;
+    ColorBuffer.b = (b1 + m) * 255;
 }
 void RGBtoHSV() 
 {
